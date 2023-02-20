@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 이게 @ModelAttribute 쓸때 널값 들어가도 오류 안나게 해주는 세팅! -->
+		<setting name="jdbcTypeForNull" value="NULL"></setting>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.kh.spring.member.domain.Member" alias="Member"/>
+		<!-- 앞에 주소들 다 생략하고 Member라고 쓸거야. -->
+	</typeAliases>
+	<mappers>
+	<mapper resource="mappers/member-mapper.xml"/>
+	<!-- 서버 안올라가면 이거 안써준거야(404) -->
+	</mappers>
+</configuration>

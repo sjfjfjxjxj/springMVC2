@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">	
+		<!-- 프로퍼티는 세터메소드 이용한 의존성주입!!! -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
+		<property name="url"			 value="jdbc:oracle:thin:@localhost:1521:xe"></property> 
+		<property name="username"		 value="SPRING"></property> 
+		<property name="password" 		 value="SPRING"></property>
+	</bean>
+	
+	<!-- 공장 빈등록! 연결공장은 연결을 만들어!-->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<!--밸류값엔 세션팩토리가 참조할 xml의 위치. resources 바로 밑이 classpath래 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- ref는 참조하는것 ! 등록한 빈을 의존성주입 할수있게  -->
+	</bean> 
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"></constructor-arg>
+	</bean>
+</beans>

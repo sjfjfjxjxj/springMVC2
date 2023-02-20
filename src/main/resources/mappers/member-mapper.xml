@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+<!-- 네임스페이스는 안적어도 되는데 여러개면 헷갈리니까 알려주는 용도 -->
+	<resultMap type="Member" id="memberResultMap">
+		<id property="memberId" 	   column="MEMBER_ID"/>
+		<result property="memberPw"    column="MEMBER_PW"/>
+		<result property="memberName"  column="MEMBER_NAME"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberPhone" column="MEMBER_PHONE"/>
+		<result property="memberAddr"  column="MEMBER_ADDR"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="updateDate"  column="UPDATE_DATE"/>
+		<result property="mStatus" 	   column="M_STATUS"/>
+	
+	</resultMap>
+	<select id="loginMember" resultMap="memberResultMap">
+		SELECT MEMBER_ID, MEMBER_NAME FROM MEMBER_TBL WHERE MEMBER_ID=#{memberId} and MEMBER_PW=#{memberPw}
+	</select>
+	<select id="selectOneById" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID=#{memberId}
+	</select>
+	
+	<insert id="insertMember">
+		INSERT INTO MEMBER_TBL VALUES(#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberPhone}, #{memberAddr}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+</mapper>
